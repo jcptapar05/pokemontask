@@ -79,7 +79,9 @@ class Pokemons extends React.Component {
     </Grid>
     {!this.state.loading && <OnView onClick={this.seeMoreHandler}></OnView>}
     {this.state.loading && <Loader />}
-    <LoadMoreButton onClick={this.seeMoreHandler}>Load More</LoadMoreButton>
+    <div style={{ textAlign: "center" }}>
+     <LoadMoreButton onClick={this.seeMoreHandler}>Load More</LoadMoreButton>
+    </div>
    </Container>
   );
  }

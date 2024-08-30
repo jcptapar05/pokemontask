@@ -1,5 +1,5 @@
-Feature: Pokémon List Page
+Feature: Pokemon List Page
 
-  Scenario: Displaying a list of Pokémon
-    Given I am on the Pokémon list page
-    Then I should see a list of Pokémon with names "Pikachu", "Charmander", and "Bulbasaur"
+  Scenario: Displaying a list of Pokemon
+    Given I am on the Pokemon list page
+    Then I should see a list of Pokemon with names pikachu, charmander, and bulbasaur

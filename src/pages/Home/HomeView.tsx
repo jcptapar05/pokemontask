@@ -1,8 +1,8 @@
 import React from "react";
-import { Pokemons } from "../../components";
+import HomeController from "./HomeController";
 
-export default class Home extends React.Component {
+export default class HomeView extends React.Component {
  render() {
-  return <Pokemons />;
+  return <HomeController />;
  }
 }

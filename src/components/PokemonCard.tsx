@@ -54,6 +54,7 @@ class PokemonCard extends React.Component<IPokemon> {
         gutterBottom
         variant="h5"
         component="h2"
+        className="pokemon-name"
        >
         {name}
        </Typography>

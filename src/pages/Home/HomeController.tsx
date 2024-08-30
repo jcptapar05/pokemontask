@@ -59,7 +59,7 @@ class HomeController extends React.Component {
     >
      {this.state.lists.length > 0 &&
       this.state.lists.map(
-       (pokemon: { name: string; id: string; types: object }) => (
+       (pokemon: { name: string; id: string; types: any[] }) => (
         <Grid
          item
          key={pokemon.name}

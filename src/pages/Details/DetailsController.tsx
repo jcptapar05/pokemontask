@@ -83,13 +83,19 @@ export default class DetailsController extends React.Component {
       <Typography
        variant="h2"
        component="h2"
+       className="pokemon-name"
       >
        {this.state.details.name}
       </Typography>
 
       <Card style={{ margin: "20px 0" }}>
        <CardContent>
-        <Typography variant="h5">Ability</Typography>
+        <Typography
+         className="ability"
+         variant="h5"
+        >
+         Ability
+        </Typography>
         {!this.state.loading &&
          this.state.details.abilities.map((ability: any, index: any) => (
           <Typography
@@ -105,7 +111,12 @@ export default class DetailsController extends React.Component {
 
       <Card>
        <CardContent>
-        <Typography variant="h5">Types</Typography>
+        <Typography
+         variant="h5"
+         className="types"
+        >
+         Types
+        </Typography>
         <div style={{ display: "flex", gap: "20px" }}>
          {!this.state.loading &&
           this.state.details.types.map((poketype: any, index: any) => (
@@ -120,7 +131,12 @@ export default class DetailsController extends React.Component {
 
       <Card style={{ padding: "10px", marginTop: "20px" }}>
        <CardContent>
-        <Typography variant="h5">Stats</Typography>
+        <Typography
+         className="stats"
+         variant="h5"
+        >
+         Stats
+        </Typography>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
          {!this.state.loading &&
           this.state.details.stats.map((poketype: any, index: any) => (

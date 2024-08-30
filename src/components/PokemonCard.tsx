@@ -24,14 +24,15 @@ const styles = {
 };
 
 interface IPokemon {
- id: string;
+ classes: any;
+ id: any;
  name: string;
- pokeTypes?: object;
+ pokeTypes?: any[];
 }
 
 class PokemonCard extends React.Component<IPokemon> {
  render() {
-  const { classes, name, id, pokeTypes } = this.props as any;
+  const { classes, name, id, pokeTypes } = this.props;
 
   return (
    <Link to={`/${name}`}>
@@ -68,7 +69,7 @@ class PokemonCard extends React.Component<IPokemon> {
         marginBottom: "10px",
        }}
       >
-       {pokeTypes.map((type: any, index: any) => (
+       {pokeTypes?.map((type: any, index: any) => (
         <PokemonTypes
          key={index}
          types={type.type.name}

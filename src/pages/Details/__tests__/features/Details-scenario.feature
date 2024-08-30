@@ -1,6 +1,8 @@
-Feature: Pokémon Details Page
+Feature: DetailsView
 
-  Scenario: Displaying details of a Pokémon
-    Given I am on the Pokémon details page for "Pikachu"
-    Then I should see the Pokémon's name "Pikachu"
-    And I should see the Pokémon's type "Electric"
+    Scenario: DetailsView renders DetailsController
+
+    Scenario: User navigates to DetailsController
+        Given User loading DetailsController Page
+        When User successfully loads DetailsController Page
+        Then User will see an pokemon ability, types and stats

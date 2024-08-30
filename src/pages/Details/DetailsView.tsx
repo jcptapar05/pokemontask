@@ -2,7 +2,7 @@ import { Container } from "@material-ui/core";
 import React from "react";
 import DetailsController from "./DetailsController";
 
-class Details extends React.Component {
+class DetailsView extends React.Component {
  render() {
   return (
    <Container>
@@ -12,4 +12,4 @@ class Details extends React.Component {
  }
 }
 
-export default Details;
+export default DetailsView;

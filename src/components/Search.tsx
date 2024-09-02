@@ -1,6 +1,6 @@
-import { Container, TextField } from "@material-ui/core";
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
+import { Container, TextField } from "@material-ui/core";
+import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { Autocomplete } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 
@@ -11,11 +11,28 @@ const styles = {
  },
 };
 
-class Search extends React.Component {
- state = {
-  lists: [],
-  searchResults: [],
- };
+interface Pokemon {
+ name: string;
+}
+
+interface SearchState {
+ lists: Pokemon[];
+ searchResults: Pokemon[];
+}
+
+class Search extends React.Component<WithStyles<typeof styles>, SearchState> {
+ typingTimeout: number | undefined;
+
+ constructor(props: WithStyles<typeof styles>) {
+  super(props);
+
+  this.state = {
+   lists: [],
+   searchResults: [],
+  };
+
+  this.typingTimeout = undefined;
+ }
 
  async fetchPokemonData() {
   try {
@@ -23,13 +40,9 @@ class Search extends React.Component {
     "https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0"
    );
    const data = await response.json();
-   this.setState((prevState) => {
-    return {
-     lists: (prevState = data.results),
-    };
-   });
+   this.setState({ lists: data.results, searchResults: data.results });
   } catch (error) {
-   console.log(error);
+   console.error("Error fetching Pokémon data:", error);
   }
  }
 
@@ -37,24 +50,60 @@ class Search extends React.Component {
   this.fetchPokemonData();
  }
 
- handleRedirect = (event: any, value: any) => {
-  localStorage.setItem("selected", value.name);
+ componentWillUnmount() {
+  if (this.typingTimeout) {
+   clearTimeout(this.typingTimeout);
+  }
+ }
+
+ handleRedirect = (event: any, value: Pokemon | null) => {
+  if (value && value.name) {
+   localStorage.setItem("selected", value.name);
+  }
+ };
+
+ handleInputChange = (
+  event: React.ChangeEvent<{}>,
+  value: string,
+  reason: string
+ ) => {
+  if (this.typingTimeout) {
+   clearTimeout(this.typingTimeout);
+  }
+
+  this.typingTimeout = window.setTimeout(() => {
+   if (value === "") {
+    this.setState({ searchResults: this.state.lists });
+   } else {
+    const filteredResults = this.state.lists.filter((pokemon: Pokemon) =>
+     pokemon.name.toLowerCase().includes(value.toLowerCase())
+    );
+    this.setState({ searchResults: filteredResults });
+   }
+  }, 1000);
  };
 
  render() {
-  const { classes } = this.props as any;
+  const { classes } = this.props;
 
   return (
    <Container>
     {this.state.lists.length > 0 && (
      <Autocomplete
       id="combo-box-demo"
-      options={this.state.lists}
-      getOptionLabel={(option: { name: string }) => option.name}
+      options={this.state.searchResults}
+      getOptionLabel={(option: Pokemon) => option.name}
       onChange={this.handleRedirect}
+      onInputChange={this.handleInputChange}
+      filterOptions={(options) => options}
       renderOption={(option) => (
        <Link
-        style={{ width: "100%", display: "block" }}
+        style={{
+         width: "100%",
+         display: "block",
+         textDecoration: "none",
+         color: "inherit",
+        }}
         to={`/${option.name}`}
        >
         {option.name}
@@ -63,7 +112,7 @@ class Search extends React.Component {
       renderInput={(params) => (
        <TextField
         {...params}
-        label="Search pokemon"
+        label="Search Pokémon"
         variant="outlined"
         className={classes.input}
        />

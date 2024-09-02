@@ -56,6 +56,7 @@ class PokemonCard extends React.Component<IPokemon> {
         variant="h5"
         component="h2"
         className="pokemon-name"
+        style={{ textTransform: "capitalize" }}
        >
         {name}
        </Typography>

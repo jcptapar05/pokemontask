@@ -16,11 +16,15 @@ const routeMap: Array<RouteType> = [
  },
  {
   component: DetailsView,
-  path: "/:id",
+  path: "/pokemon/:id",
  },
  {
   component: ComponentView,
   path: "/home/test",
+ },
+ {
+  component: ComponentView,
+  path: "*",
  },
 ];
 

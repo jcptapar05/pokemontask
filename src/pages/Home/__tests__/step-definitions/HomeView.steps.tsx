@@ -2,7 +2,6 @@ import React from "react";
 import { mount, shallow } from "enzyme";
 import { defineFeature, loadFeature } from "jest-cucumber";
 
-import HomeController from "../../HomeController";
 import HomeView from "../../HomeView";
 
 const mockedProps = {};
@@ -14,14 +13,14 @@ const feature = loadFeature(
 defineFeature(feature, (test) => {
  test("HomeView renders HomeController", () => {
   const wrapper = shallow(<HomeView {...mockedProps} />);
-  expect(wrapper.find(HomeController).exists()).toBe(true);
+  expect(wrapper.find(HomeView).exists()).toBe(true);
  });
 
  test("Displaying a list of Pokemon", ({ given, then }) => {
   let wrapper: any;
 
   given("I am on the Pokemon list page", () => {
-   wrapper = mount(<HomeController />);
+   wrapper = mount(<HomeView />);
   });
 
   then("I should see a list of Pokemon with name bulbasaur", () => {

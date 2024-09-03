@@ -1,20 +1,6 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import { defineFeature, loadFeature } from "jest-cucumber";
 import DetailsView from "../../DetailsView";
-import DetailsController from "../../DetailsController";
-
-const mockMatch = {
- params: { name: "charmander" },
- isExact: true,
- path: "/:name",
- url: "/charmander",
-};
-
-const screenProps = {
- match: mockMatch,
- location: {},
- history: {},
-};
 
 const mockedProps = {};
 
@@ -23,35 +9,34 @@ const feature = loadFeature(
 );
 
 defineFeature(feature, (test) => {
+ let DetailsViewWrapper: ShallowWrapper;
+
  beforeEach(() => {
   jest.resetModules();
  });
 
- test("DetailsView renders DetailsController", () => {
-  const wrapper = shallow(<DetailsView {...mockedProps} />);
-  expect(wrapper.find(DetailsController).exists()).toBe(true);
- });
-
- test("User navigates to DetailsController", ({ given, when, then }) => {
-  let DetailsControllerWrapper: ShallowWrapper;
-  let instance: DetailsController;
-
-  given("User loading DetailsController Page", () => {
-   DetailsControllerWrapper = shallow(<DetailsController {...screenProps} />);
+ test("DetailsView", ({ given, when, then }) => {
+  given("I am on the DetailsView page", () => {
+   DetailsViewWrapper = shallow(<DetailsView {...mockedProps} />);
+   DetailsViewWrapper.setState({
+    loading: false,
+    // details: {
+    //  abilities: [{ ability: { name: "overgrow" } }],
+    //  types: [{ type: { name: "grass" } }],
+    //  stats: [{ stat: { name: "speed" }, base_stat: 45 }],
+    // },
+   });
+   DetailsViewWrapper.update();
   });
 
-  when("User successfully loads DetailsController Page", () => {
-   instance = DetailsControllerWrapper.instance() as DetailsController;
-  });
-
-  then("User will see an pokemon ability, types and stats", () => {
-   const ability = DetailsControllerWrapper.find(".ability");
+  then("User will see the Pokémon's ability, types, and stats", () => {
+   const ability = DetailsViewWrapper.find(".ability").first();
    expect(ability.text()).toBe("Ability");
 
-   const types = DetailsControllerWrapper.find(".types");
+   const types = DetailsViewWrapper.find(".types").first();
    expect(types.text()).toBe("Types");
 
-   const stats = DetailsControllerWrapper.find(".stats");
+   const stats = DetailsViewWrapper.find(".stats").first();
    expect(stats.text()).toBe("Stats");
   });
  });

@@ -13,6 +13,7 @@ const styles = {
 
 interface Pokemon {
  name: string;
+ id: string;
 }
 
 interface SearchState {
@@ -78,6 +79,14 @@ class Search extends React.Component<WithStyles<typeof styles>, SearchState> {
     const filteredResults = this.state.lists.filter((pokemon: Pokemon) =>
      pokemon.name.toLowerCase().includes(value.toLowerCase())
     );
+
+    if (filteredResults.length <= 0) {
+     this.setState({
+      searchResults: [{ name: "Pokemon not found!", id: "" }],
+     });
+     return;
+    }
+
     this.setState({ searchResults: filteredResults });
    }
   }, 1000);
@@ -100,11 +109,11 @@ class Search extends React.Component<WithStyles<typeof styles>, SearchState> {
        <Link
         style={{
          width: "100%",
-         display: "block",
+         display: "inline-block",
          textDecoration: "none",
          color: "inherit",
         }}
-        to={`/${option.name}`}
+        to={`/pokemon/${option.name}`}
        >
         {option.name}
        </Link>

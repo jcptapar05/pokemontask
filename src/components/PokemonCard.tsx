@@ -35,7 +35,7 @@ class PokemonCard extends React.Component<IPokemon> {
   const { classes, name, id, pokeTypes } = this.props;
 
   return (
-   <Link to={`/${name}`}>
+   <Link to={`/pokemon/${name}`}>
     <Card style={{ textAlign: "center", padding: "10px" }}>
      <CardActionArea>
       <Typography

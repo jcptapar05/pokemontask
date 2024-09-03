@@ -1,8 +1,6 @@
-Feature: DetailsView
+Feature: Display Pokémon details on the DetailsView
 
-    Scenario: DetailsView renders DetailsController
+  Scenario: DetailsView
+    Given I am on the DetailsView page
+    Then User will see the Pokémon's ability, types, and stats
 
-    Scenario: User navigates to DetailsController
-        Given User loading DetailsController Page
-        When User successfully loads DetailsController Page
-        Then User will see an pokemon ability, types and stats

@@ -12,17 +12,6 @@ import { Link } from "react-router-dom";
 import PokemonImg from "./PokemonImg";
 import PokemonTypes from "./PokemonTypes";
 
-const styles = {
- media: {
-  height: 140,
-  width: 140,
-  margin: "10px auto",
- },
- pokemonId: {
-  margin: "10px 0",
- },
-};
-
 interface IPokemon {
  classes?: any;
  id: any;
@@ -42,7 +31,6 @@ class PokemonCard extends React.Component<IPokemon> {
        variant="body2"
        color="textSecondary"
        component="p"
-       className={classes?.pokemonId}
       >
        # {id}
       </Typography>
@@ -84,5 +72,4 @@ class PokemonCard extends React.Component<IPokemon> {
  }
 }
 
-// export default withStyles(styles)(PokemonCard);
 export default PokemonCard;

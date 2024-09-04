@@ -5,4 +5,3 @@ Feature: Display Pokémon details on the DetailsView
     Then User will see the Pokémon's ability
     Then User will see the Pokémon's types
     Then User will see the Pokémon's stats
-

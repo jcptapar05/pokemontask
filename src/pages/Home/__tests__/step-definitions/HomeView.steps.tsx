@@ -16,6 +16,43 @@ const feature = loadFeature(
 defineFeature(feature, (test) => {
  let wrapper: any;
 
+ test("Fetches data from the Pokémon API", async () => {
+  const mockResponse = {
+   ok: true,
+   status: 200,
+   statusText: "OK",
+   headers: {
+    get: () => "application/json",
+   },
+   redirected: false,
+   type: "basic",
+   url: "",
+   clone: jest.fn(),
+   body: null,
+   bodyUsed: false,
+   json: () =>
+    Promise.resolve({
+     results: [
+      { name: "bulbasaur", id: 1 },
+      { name: "ivysaur", id: 2 },
+     ],
+    }),
+   text: jest.fn(),
+   arrayBuffer: jest.fn(),
+   blob: jest.fn(),
+   formData: jest.fn(),
+  };
+
+  global.fetch = jest.fn(() => Promise.resolve(mockResponse as any));
+
+  const response = await fetch(
+   "https://pokeapi.co/api/v2/pokemon?limit=2&offset=0"
+  );
+  const data = await response.json();
+
+  expect(data.results.length).toBe(2);
+ });
+
  test("Displaying a list of Pokemon", ({ given, then }) => {
   given("I am on the Pokemon list page", () => {
    wrapper = mount(
@@ -26,16 +63,12 @@ defineFeature(feature, (test) => {
 
    wrapper.setState({
     loading: false,
-    // lists: [
-    //  { name: "bulbasaur", id: 1 },
-    //  { name: "ivysaur", id: 2 },
-    // ],
    });
 
    wrapper.update();
   });
 
-  then("I should see a load more button", () => {
+  then("I should see a load more button", async () => {
    const loadMore = wrapper.find("#loadmore").first();
    expect(loadMore.text()).toContain("Load More");
   });

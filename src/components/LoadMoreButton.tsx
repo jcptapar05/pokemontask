@@ -24,6 +24,7 @@ class LoadMoreButton extends React.Component<
     color="primary"
     variant="outlined"
     onClick={onClick}
+    id="loadmore"
    >
     {this.props.children}
    </Button>

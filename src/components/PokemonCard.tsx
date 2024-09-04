@@ -24,7 +24,7 @@ const styles = {
 };
 
 interface IPokemon {
- classes: any;
+ classes?: any;
  id: any;
  name: string;
  pokeTypes?: any[];
@@ -42,7 +42,7 @@ class PokemonCard extends React.Component<IPokemon> {
        variant="body2"
        color="textSecondary"
        component="p"
-       className={classes.pokemonId}
+       className={classes?.pokemonId}
       >
        # {id}
       </Typography>
@@ -84,4 +84,5 @@ class PokemonCard extends React.Component<IPokemon> {
  }
 }
 
-export default withStyles(styles)(PokemonCard);
+// export default withStyles(styles)(PokemonCard);
+export default PokemonCard;

@@ -19,18 +19,15 @@ class LoadMoreButton extends React.Component<
   const { classes, onClick } = this.props as any;
 
   return (
-   <div>
-    <span>Text</span>
-    <Button
-     className={classes?.button}
-     color="primary"
-     variant="outlined"
-     onClick={onClick}
-     id="loadmore"
-    >
-     {this.props.children}
-    </Button>
-   </div>
+   <Button
+    className={classes?.button}
+    color="primary"
+    variant="outlined"
+    onClick={onClick}
+    id="loadmore"
+   >
+    {this.props.children}
+   </Button>
   );
  }
 }
